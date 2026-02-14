@@ -21,10 +21,10 @@ class PostgresqlPreflightValidator < PreflightValidator
   # we ship. When we bumped the version we ship to 9.6, we haven't yet
   # introduced any changes that _require_ 9.6. So, these constants reflect the
   # actually required PG version.
-  REQUIRED_VERSION  = PgVersion.new('9.6')
+  REQUIRED_VERSION = PgVersion.new('9.6')
 
   # supported PG version
-  SUPPORTED_VERSION = PgVersion.new('13')
+  SUPPORTED_VERSION = PgVersion.new('14')
 
   def run!
     warn_about_removed_attribute('checkpoint_segments')
@@ -190,7 +190,7 @@ class PostgresqlPreflightValidator < PreflightValidator
     v = PgVersion.new /^([0-9\.]+)/.match(r.first['server_version']).to_a.first
 
     # Note that we're looking for the same major, and using our minor as the minimum version
-    # This provides compatibility with external databases that use < 13 before we make use
+    # This provides compatibility with external databases that use < 14 before we make use
     # of any features available in > 9.6.
 
     if v.major == REQUIRED_VERSION || v.major == SUPPORTED_VERSION
